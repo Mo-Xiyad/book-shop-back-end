@@ -3,6 +3,12 @@ import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import {
+  notFoundHandler,
+  badRequestHandler,
+  genericErrorHandler,
+} from "./errorHandlers.js";
+
 import postsRouter from "./services/posts/index.js";
 
 const server = express();
@@ -18,6 +24,9 @@ server.use(express.json());
 server.use("/posts", postsRouter);
 
 // ******************************** ERROR HANDLERS ********************************
+server.use(notFoundHandler);
+server.use(badRequestHandler);
+server.use(genericErrorHandler);
 
 mongoose.connect(process.env.MONGO_CONNECTION);
 
