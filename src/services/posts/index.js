@@ -1,9 +1,15 @@
 import express from "express";
 import createHttpError from "http-errors";
-import PostModel from "../../models/post_schema.js";
+import Handler from "./handlers.js";
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {});
+router.route("/").get(Handler.getPosts).post(Handler.createPosts);
+
+router
+  .route("/:postId")
+  .get(Handler.getpostsById)
+  .put(Handler.updatePostsById)
+  .delete(Handler.deletePostsById);
 
 export default router;
