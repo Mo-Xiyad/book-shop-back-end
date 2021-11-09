@@ -1,7 +1,6 @@
 import express from "express";
 import createHttpError from "http-errors";
-
-import PostModel from "./schema.js";
+import PostModel from "../../models/post_schema.js";
 
 const router = express.Router();
 
