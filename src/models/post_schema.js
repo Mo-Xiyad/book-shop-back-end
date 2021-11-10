@@ -7,12 +7,32 @@ const postSchema = new Schema(
     title: { type: String, required: true },
     cover: { type: String },
     readTime: {
-      value: { type: Number },
-      unit: { type: String, default: "minutes" },
+      type: Object,
+      required: true,
+      nested: {
+        value: {
+          type: Number,
+          required: true,
+        },
+        unit: {
+          type: String,
+          default: "minutes",
+        },
+      },
     },
     author: {
-      name: { type: String },
-      avatar: { type: String },
+      type: Object,
+      required: true,
+      nested: {
+        name: {
+          type: String,
+          required: true,
+        },
+        avatar: {
+          type: String,
+          required: true,
+        },
+      },
     },
     content: { type: String },
   },

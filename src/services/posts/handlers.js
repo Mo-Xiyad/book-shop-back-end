@@ -1,9 +1,16 @@
 import PostModel from "../../models/post_schema.js";
+import createHttpError from "http-errors";
 
 const getPosts = async (req, res, next) => {
   try {
-    const posts = await PostModel.find();
-    res.status(200).send(posts);
+    const allPosts = await PostModel.find(
+      {},
+      { createdAt: 0, updatedAt: 0, __v: 0 }
+    );
+    const count = await PostModel.countDocuments();
+
+    // skip = (page number - 1) * limit
+    res.status(200).send({ count: count, posts: allPosts });
   } catch (error) {
     console.log(error);
     next(error);
@@ -25,7 +32,11 @@ const createPosts = async (req, res, next) => {
 const getpostsById = async (req, res, next) => {
   try {
     const id = req.params.postId;
-    const post = await PostModel.findById(id);
+    const post = await PostModel.findById(id, {
+      createdAt: 0,
+      updatedAt: 0,
+      __v: 0,
+    });
     if (post) {
       res.send(post);
     } else {
@@ -69,11 +80,32 @@ const deletePostsById = async (req, res, next) => {
     next(error);
   }
 };
+
+const uploadImage = async (req, res, next) => {
+  try {
+    const imgUrl = req.file.path;
+    console.log(req.file);
+    const id = req.params.postId;
+    const updatePost = await PostModel.findByIdAndUpdate(
+      id,
+      { $set: { cover: imgUrl } },
+      {
+        new: true,
+      }
+    );
+    res.send(updatePost);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 const postsHandler = {
   getPosts,
   createPosts,
   getpostsById,
   updatePostsById,
   deletePostsById,
+  uploadImage,
 };
 export default postsHandler;
