@@ -1,5 +1,6 @@
 # book-shop-back-end
 
+<p>This package helps you convert the images files you need to upload to mongoDB ((without)) GRIDfs or MULTER</p>
 `https://github.com/saran-surya/Mongo-Image-Converter`
 
 ### Uploading Image
