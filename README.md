@@ -1,5 +1,8 @@
 # book-shop-back-end
 
+<!-- Cloudinary docs -->
+<!-- https://cloudinary.com/blog/build_the_back_end_for_your_own_instagram_style_app_with_cloudinary -->
+
 <p>This package helps you convert the images files you need to upload to mongoDB ((without)) GRIDfs or MULTER</p>
 `https://github.com/saran-surya/Mongo-Image-Converter`
 
